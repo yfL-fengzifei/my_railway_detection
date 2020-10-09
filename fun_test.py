@@ -120,7 +120,84 @@ import matplotlib.pyplot as plt
 # plt.show()
 
 
-#======================================================threshold阈值
+#======================================================threshold阈值-abs阈值,结果为0-100
+# src_img=cv2.imread('./railway_img_1280x720.jpg')
+# gray_img=cv2.cvtColor(src_img,cv2.COLOR_BGR2GRAY)
+#
+# #逆透视变换转换为鸟瞰图
+# from warpImg import *
+# M,Min=warpImg(gray_img) #变换矩阵
+# warp_grayimg=cv2.warpPerspective(gray_img,M,dsize=(gray_img.shape[1],gray_img.shape[0]))
+# warp_srcimg=cv2.warpPerspective(src_img,M,dsize=(gray_img.shape[1],gray_img.shape[0]))
+#
+# mask = np.zeros_like(gray_img)
+# mask[:, 450:950] = 255
+# warp_grayimg_roi = cv2.bitwise_and(warp_grayimg, warp_grayimg, mask=mask)
+# warp_srcimg_roi = cv2.bitwise_and(src_img, src_img, mask=mask)
+#
+# from binary_threshold import *
+# # binary_absSobelimg=abs_sobel_threshold(warp_grayimg_roi,warp_srcimg_roi,orient='x',thresh_min=50,thresh_max=200)
+# # # cv2.imshow('abs sobel',binary_absSobelimg)
+# # # cv2.waitKey(0)
+#
+# #==滑动条测试-结果为0-100
+# src_img=cv2.imread('./railway_img_1280x720.jpg')
+# gray_img=cv2.cvtColor(src_img,cv2.COLOR_BGR2GRAY)
+#
+# def nothing(x):
+#     pass
+# cv2.namedWindow('abs sobel')
+# cv2.createTrackbar('min','abs sobel',0,255,nothing)
+# cv2.createTrackbar('max','abs sobel',0,255,nothing)
+# while(1):
+#     thresh_min=cv2.getTrackbarPos('min','abs sobel')
+#     thresh_max=cv2.getTrackbarPos('max','abs sobel')
+#     binary_absSobelimg = abs_sobel_threshold(warp_grayimg_roi, warp_srcimg_roi, orient='x', thresh_min=thresh_min,
+#                                              thresh_max=thresh_max)
+#     cv2.imshow('abs sobel',binary_absSobelimg)
+#     k=cv2.waitKey(1)& 0xFF
+#     if k==27:
+#         break
+# cv2.destroyAllWindows()
+
+#======================================================threshold阈值-mag阈值,结果45-100
+# src_img=cv2.imread('./railway_img_1280x720.jpg')
+# gray_img=cv2.cvtColor(src_img,cv2.COLOR_BGR2GRAY)
+#
+# #逆透视变换转换为鸟瞰图
+# from warpImg import *
+# M,Min=warpImg(gray_img) #变换矩阵
+# warp_grayimg=cv2.warpPerspective(gray_img,M,dsize=(gray_img.shape[1],gray_img.shape[0]))
+# warp_srcimg=cv2.warpPerspective(src_img,M,dsize=(gray_img.shape[1],gray_img.shape[0]))
+#
+# mask = np.zeros_like(gray_img)
+# mask[:, 450:950] = 255
+# warp_grayimg_roi = cv2.bitwise_and(warp_grayimg, warp_grayimg, mask=mask)
+# warp_srcimg_roi = cv2.bitwise_and(src_img, src_img, mask=mask)
+#
+# from binary_threshold import *
+# # binary_magsobelimg = mag_threshold(warp_grayimg_roi, warp_srcimg_roi, sobel_kernel=3, mag_thresh=(30, 170))
+# # cv2.imshow('mag sobel',binary_magsobelimg)
+# # cv2.waitKey(0)
+#
+# def nothing(x):
+#     pass
+# cv2.namedWindow('mag sobel')
+# cv2.createTrackbar('min','mag sobel',0,255,nothing)
+# cv2.createTrackbar('max','mag sobel',0,255,nothing)
+# cv2.createTrackbar('kernel size','mag sobel',3,30,nothing)
+# while(1):
+#     thresh_min=cv2.getTrackbarPos('min','mag sobel')
+#     thresh_max=cv2.getTrackbarPos('max','mag sobel')
+#     sobel_kernel=cv2.getTrackbarPos('kernel size','mag soble')
+#     binary_magSobelimg=mag_threshold(warp_grayimg_roi,warp_srcimg_roi,sobel_kernel=sobel_kernel,mag_thresh=(thresh_min,thresh_max))
+#     cv2.imshow('mag sobel',binary_magSobelimg)
+#     k=cv2.waitKey(1)& 0xFF
+#     if k==27:
+#         break
+# cv2.destroyAllWindows()
+
+#======================================================threshold阈值-dir阈值,结果
 src_img=cv2.imread('./railway_img_1280x720.jpg')
 gray_img=cv2.cvtColor(src_img,cv2.COLOR_BGR2GRAY)
 
@@ -136,27 +213,23 @@ warp_grayimg_roi = cv2.bitwise_and(warp_grayimg, warp_grayimg, mask=mask)
 warp_srcimg_roi = cv2.bitwise_and(src_img, src_img, mask=mask)
 
 from binary_threshold import *
-# binary_absSobelimg=abs_sobel_threshold(warp_grayimg_roi,warp_srcimg_roi,orient='x',thresh_min=50,thresh_max=200)
-# # cv2.imshow('abs sobel',binary_absSobelimg)
-# # cv2.waitKey(0)
-
-#==滑动条测试-结果为0-100
-src_img=cv2.imread('./railway_img_1280x720.jpg')
-gray_img=cv2.cvtColor(src_img,cv2.COLOR_BGR2GRAY)
+# binary_magsobelimg = mag_threshold(warp_grayimg_roi, warp_srcimg_roi, sobel_kernel=3, mag_thresh=(30, 170))
+# cv2.imshow('mag sobel',binary_magsobelimg)
+# cv2.waitKey(0)
 
 def nothing(x):
     pass
-cv2.namedWindow('abs sobel')
-cv2.createTrackbar('min','abs sobel',0,255,nothing)
-cv2.createTrackbar('max','abs sobel',0,255,nothing)
+cv2.namedWindow('dir sobel')
+cv2.createTrackbar('min','dir sobel',0,100,nothing)
+cv2.createTrackbar('max','dir sobel',0,200,nothing)
+cv2.createTrackbar('kernel size','dir sobel',3,30,nothing)
 while(1):
-    thresh_min=cv2.getTrackbarPos('min','abs sobel')
-    thresh_max=cv2.getTrackbarPos('max','abs sobel')
-    binary_absSobelimg = abs_sobel_threshold(warp_grayimg_roi, warp_srcimg_roi, orient='x', thresh_min=thresh_min,
-                                             thresh_max=thresh_max)
-    cv2.imshow('abs sobel',binary_absSobelimg)
+    thresh_min=cv2.getTrackbarPos('min','dir sobel')
+    thresh_max=cv2.getTrackbarPos('max','dir sobel')
+    sobel_kernel=cv2.getTrackbarPos('kernel size','dir sobel')
+    binary_dirSobelimg=dir_threshold(warp_grayimg_roi,warp_srcimg_roi,sobel_kernel=sobel_kernel,dir_thrsh=(thresh_min/100,thresh_max/100))
+    cv2.imshow('dir sobel',binary_dirSobelimg)
     k=cv2.waitKey(1)& 0xFF
     if k==27:
         break
 cv2.destroyAllWindows()
-

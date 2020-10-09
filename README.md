@@ -12,4 +12,3 @@ railway detection
 - 滑动窗口
 - 跟踪
 - 画图
-- 
