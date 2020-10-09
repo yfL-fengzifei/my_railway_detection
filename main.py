@@ -23,15 +23,17 @@ def main(src_img):
     # plt.imshow(warp_srcimg)
     # plt.show()
 
-    #创建ROI
+    #创建ROI,这是在灰度图上创建ROI
     mask=np.zeros_like(gray_img)
     mask[:,450:950]=255
-    warp_img_roi=cv2.bitwise_and(warp_img,warp_img,mask=mask)
-    # cv2.imshow('warp roi',warp_img_roi)
+    warp_grayimg_roi=cv2.bitwise_and(warp_img,warp_img,mask=mask)
+    warp_srcimg_roi=cv2.bitwise_and(src_img,src_img,mask=mask)
+    # cv2.imshow('warp roi',warp_grayimg_roi)
+    # cv2.imshow('warp src roi',warp_srcimg_roi)
     # cv2.waitKey(0)
 
     #二值化
-    binary_img=binary_threshold(warp_img_roi)
+    binary_threshold(warp_grayimg_roi,warp_srcimg_roi)
 
     pass
 
