@@ -16,7 +16,7 @@ def main(src_img):
     M,Min=warpImg(gray_img) #变换矩阵
     warp_img=cv2.warpPerspective(gray_img,M,dsize=(gray_img.shape[1],gray_img.shape[0]))
     #对原始图像进行转换
-    # warp_srcimg=cv2.warpPerspective(src_img,M,dsize=(src_img.shape[1],src_img.shape[0]))
+    warp_srcimg=cv2.warpPerspective(src_img,M,dsize=(src_img.shape[1],src_img.shape[0]))
     # plt.subplot(1,2,1)
     # plt.imshow(warp_img)
     # plt.subplot(1,2,2)
@@ -27,13 +27,20 @@ def main(src_img):
     mask=np.zeros_like(gray_img)
     mask[:,450:950]=255
     warp_grayimg_roi=cv2.bitwise_and(warp_img,warp_img,mask=mask)
-    warp_srcimg_roi=cv2.bitwise_and(src_img,src_img,mask=mask)
+    warp_srcimg_roi=cv2.bitwise_and(warp_srcimg,warp_srcimg,mask=mask)
     # cv2.imshow('warp roi',warp_grayimg_roi)
     # cv2.imshow('warp src roi',warp_srcimg_roi)
     # cv2.waitKey(0)
 
     #二值化
-    binary_threshold(warp_grayimg_roi,warp_srcimg_roi)
+
+    binary_img=binary_threshold(warp_grayimg_roi,warp_srcimg_roi)
+    cv2.imshow('binary img',binary_img)
+    cv2.waitKey(0)
+
+
+
+
 
     pass
 
