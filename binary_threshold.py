@@ -149,8 +149,9 @@ def binary_threshold(warp_grayimg,warp_srcimg):
     binary_absSobelimg=abs_sobel_threshold(warp_grayimg,warp_srcimg,orient='x',thresh_min=100,thresh_max=190)
     # cv2.imshow('abs sobel',binary_absSobelimg)
     #膨胀或闭运算
-    #膨胀
+    #结构体
     struct_kernel=np.ones((5,5),dtype=np.uint8)
+    #膨胀
     # binary_absSobelimg=cv2.dilate(binary_absSobelimg,struct_kernel,iterations=3)
     #闭运算
     cv2.morphologyEx(binary_absSobelimg,cv2.MORPH_CLOSE,struct_kernel,binary_absSobelimg,iterations=3)
