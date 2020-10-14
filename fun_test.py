@@ -433,3 +433,11 @@ import matplotlib.image as Image
 # #         break
 # # cv2.destroyAllWindows()
 
+#======================================================矩形框
+dst=np.zeros((500,500),dtype=np.uint8)
+dst=np.dstack((dst,dst,dst))
+pts=[50,50,100,100]
+pts2=(150,150,200,200)
+cv2.rectangle(dst,pts[:2],pts[-2:],(255,0,0))
+cv2.imshow('dst',dst)
+cv2.waitKey()
