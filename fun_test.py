@@ -434,10 +434,23 @@ import matplotlib.image as Image
 # # cv2.destroyAllWindows()
 
 #======================================================矩形框
-dst=np.zeros((500,500),dtype=np.uint8)
-dst=np.dstack((dst,dst,dst))
-pts=[50,50,100,100]
-pts2=(150,150,200,200)
-cv2.rectangle(dst,pts[:2],pts[-2:],(255,0,0))
-cv2.imshow('dst',dst)
-cv2.waitKey()
+# dst=np.zeros((500,500),dtype=np.uint8)
+# dst=np.dstack((dst,dst,dst))
+# pts=[50,50,100,100]
+# pts2=(150,150,200,200)
+# cv2.rectangle(dst,pts[:2],pts[-2:],(255,0,0))
+# cv2.imshow('dst',dst)
+# cv2.waitKey()
+
+#======================================================三阶多项式拟合直线
+# x=np.linspace(0,100-1,100)
+# y=x*2+abs(np.random.randn(100))
+# y2=x*2
+# # print(x)
+# # print(y)
+# fit=np.polyfit(x,y,3)
+# l_fit=fit[0]*x**3+fit[1]*x**2+fit[2]*x+fit[3]
+# plt.scatter(x,y)
+# plt.plot(x,l_fit,color='yellow')
+# plt.show()
+# print(fit[0],fit[1],fit[2],fit[3])
